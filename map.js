@@ -17,7 +17,7 @@ var projection = d3.geo.mercator()
   .scale(10000)
   // The geographical center of Switzerland is around 46.8°, 8.2°
   //     https://de.wikipedia.org/wiki/Älggi-Alp
-  .center([8.226692, 46.80121])
+  .center([30.802500, 26.820600])
   // Translate: Translate it to fit the container
   .translate([width/2, height/2]);
 
@@ -26,7 +26,7 @@ var path = d3.geo.path()
   .projection(projection);
 
 // Load the features from the GeoJSON.
-d3.json('data/ch_municipalities.geojson', function(error, features) {
+d3.json('data/map.geojson', function(error, features) {
 
   // We add a <g> element to the SVG element and give it a class to
   // style it later.
