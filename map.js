@@ -81,4 +81,66 @@ function calculateScaleCenter(features) {
     'scale': scale,
     'center': center
   };
+  
+  //Load in cities data
+					d3.csv("data/villages.csv", function(data) {
+						
+						svg.selectAll("circle")
+						   .data(data)
+						   .enter()
+						   .append("circle")
+						   .attr("cx", function(d) {
+							   return projection([d.lon, d.lat])[0];
+						   })
+						   .attr("cy", function(d) {
+							   return projection([d.lon, d.lat])[1];
+						   })
+						   .attr("r", function(d) {
+								return Math.sqrt(parseInt(d.feddans) * 0.0004);
+						   })
+						   //Set circle fill color to "feddans" value
+						   .style("fill", function(d) {
+							   	    if (d.feddans <= 500) {
+							   			return "#7B3294";
+						   			} 
+						   			else if (d.feddans > 500 && d.feddans <= 1500) {
+						   				return "#C2A5CF";
+						   			}
+						   			else if (d.feddans > 1500 && d.feddans <= 2500) {
+						   				return "#FFFFFF";
+						   			}
+						   			else if (d.feddans > 2500 && d.feddans <= 3500) {
+						   				return "#A6DBA0"
+						   			}
+						   			else {
+							   		return "#008837";
+						   			}
+						   })
+						   .style("stroke-width", "1")
+						   //Set circle stroke color to "type" value
+						   .style("stroke", "#222") 
+						   .style("opacity", 0.8)
+						   .on("mouseover", function(d) {   //Add tooltip on mouseover for each circle
+								//Get this circle's x/y values, then augment for the tooltip
+								var xPosition = d3.select(this).attr("cx");
+								var yPosition = d3.select(this).attr("cy");
+								//Update the tooltip position and value
+								d3.select("#tooltip")
+									//Show the tooltip above where the mouse triggers the event
+									.style("left", (d3.event.pageX) + "px")     
+                					.style("top", (d3.event.pageY - 90) + "px")
+									.select("#city-label")	
+									.html("<strong>" + d.place + "</strong>" + "<br/>" + "feddans: " + d.feddans)			
+						   
+								//Show the tooltip
+								d3.select("#tooltip").classed("hidden", false);
+						   })
+						   .on("mouseout", function() {
+						   
+								//Hide the tooltip
+								d3.select("#tooltip").classed("hidden", true);
+								
+						   })	
+					});
+  
 }
