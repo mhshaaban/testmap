@@ -21,7 +21,7 @@ var path = d3.geo.path()
   .projection(projection);
 
 // Load the features from the GeoJSON.
-d3.json('data/map.geojson', function(error, features) {
+d3.json('data/ch_municipalities', function(error, features) {
 
   // Get the scale and center parameters from the features.
   var scaleCenter = calculateScaleCenter(features);
