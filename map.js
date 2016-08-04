@@ -1,7 +1,7 @@
 // We specify the dimensions for the map container. We use the same
 // width and height as specified in the CSS above.
 var width = 900,
-    height = 600;
+    height = 900;
 
 // We create a SVG element in the map container and give it some
 // dimensions.
