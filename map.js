@@ -43,45 +43,6 @@ d3.json('data/map.geojson', function(error, features) {
     .enter().append('path')
       // As "d" attribute, we set the path of the feature.
       .attr('d', path);
-
-});
-
-/**
- * Calculate the scale factor and the center coordinates of a GeoJSON
- * FeatureCollection. For the calculation, the height and width of the
- * map container is needed.
- *
- * Thanks to: http://stackoverflow.com/a/17067379/841644
- *
- * @param {object} features - A GeoJSON FeatureCollection object
- *   containing a list of features.
- *
- * @return {object} An object containing the following attributes:
- *   - scale: The calculated scale factor.
- *   - center: A list of two coordinates marking the center.
- */
-function calculateScaleCenter(features) {
-  // Get the bounding box of the paths (in pixels!) and calculate a
-  // scale factor based on the size of the bounding box and the map
-  // size.
-  var bbox_path = path.bounds(features),
-      scale = 0.95 / Math.max(
-        (bbox_path[1][0] - bbox_path[0][0]) / width,
-        (bbox_path[1][1] - bbox_path[0][1]) / height
-      );
-
-  // Get the bounding box of the features (in map units!) and use it
-  // to calculate the center of the features.
-  var bbox_feature = d3.geo.bounds(features),
-      center = [
-        (bbox_feature[1][0] + bbox_feature[0][0]) / 2,
-        (bbox_feature[1][1] + bbox_feature[0][1]) / 2];
-
-  return {
-    'scale': scale,
-    'center': center
-  };
-  
   //Load in cities data
 					d3.csv("data/villages.csv", function(data) {
 						
@@ -141,6 +102,43 @@ function calculateScaleCenter(features) {
 								d3.select("#tooltip").classed("hidden", true);
 								
 						   })	
-					});
+			
+});
+
+/**
+ * Calculate the scale factor and the center coordinates of a GeoJSON
+ * FeatureCollection. For the calculation, the height and width of the
+ * map container is needed.
+ *
+ * Thanks to: http://stackoverflow.com/a/17067379/841644
+ *
+ * @param {object} features - A GeoJSON FeatureCollection object
+ *   containing a list of features.
+ *
+ * @return {object} An object containing the following attributes:
+ *   - scale: The calculated scale factor.
+ *   - center: A list of two coordinates marking the center.
+ */
+function calculateScaleCenter(features) {
+  // Get the bounding box of the paths (in pixels!) and calculate a
+  // scale factor based on the size of the bounding box and the map
+  // size.
+  var bbox_path = path.bounds(features),
+      scale = 0.95 / Math.max(
+        (bbox_path[1][0] - bbox_path[0][0]) / width,
+        (bbox_path[1][1] - bbox_path[0][1]) / height
+      );
+
+  // Get the bounding box of the features (in map units!) and use it
+  // to calculate the center of the features.
+  var bbox_feature = d3.geo.bounds(features),
+      center = [
+        (bbox_feature[1][0] + bbox_feature[0][0]) / 2,
+        (bbox_feature[1][1] + bbox_feature[0][1]) / 2];
+
+  return {
+    'scale': scale,
+    'center': center
+  };
   
 }
