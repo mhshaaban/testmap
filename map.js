@@ -105,6 +105,8 @@ d3.json('data/map.geojson', function(error, features) {
 			
 });
 
+});
+
 /**
  * Calculate the scale factor and the center coordinates of a GeoJSON
  * FeatureCollection. For the calculation, the height and width of the
