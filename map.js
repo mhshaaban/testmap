@@ -51,30 +51,16 @@ d3.csv("data/villages.csv", function(data) {
 		.enter()
 		.append("circle")
 		.attr("cx", function(d) {
-		return projection([d.lon, d.lat])[0];
+		//[0] returns the first coordinate (x) of the projected value
+		return projection([d.longitude, d.latitude])[0];
 		})
-		.attr("cy", function(d) {
-		return projection([d.lon, d.lat])[1];
+	   	.attr("cy", function(d) {
+	   	//[1] returns the second coordinate (y) of the projected value
+		return projection([d.longitude, d.latitude])[1];
 		})
- 
-	//Set circle fill color to "feddans" value
-	.style("fill", function(d) {
-		if (d.feddans <= 500) {
-		return "#7B3294";
-		} 
-		else if (d.feddans > 500 && d.feddans <= 1500) {
-		return "#C2A5CF";
-		}
-		else if (d.feddans > 1500 && d.feddans <= 2500) {
-		return "#FFFFFF";
-		}
-		else if (d.feddans > 2500 && d.feddans <= 3500) {
-		return "#A6DBA0"
-		}
-		else {
-		return "#008837";
-		}
-		})
+		.attr("r", 5)
+		.style("fill", "blue")
+		style("opacity", 0.75);
 						   
 });
 
